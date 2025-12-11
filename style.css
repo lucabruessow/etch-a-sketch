@@ -45,10 +45,22 @@ h1 {
 }
 
 .grid {
+    background-color: #444243;
+    display: flex;
     flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: flex-start;
     max-width: 800px;
     max-height: 800px;
-    border: 5px dotted #50BCF0;
+    border: 5px solid #50BCF0;
     box-sizing: border-box;
+    aspect-ratio: 1 / 1;
+}
+
+.grid-square {
+    flex: 1 1 auto;
+    border: 1px dashed #50BCF0;
+    box-sizing: border-box;
+    margin: -1px;
     aspect-ratio: 1 / 1;
 }
