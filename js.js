@@ -10,6 +10,19 @@ function fillGrid(quantity, grid) {
     }
 }
 
-const quantity = 36;
+function paintSquare(event) {
+    if ((event.type === "mouseover" && event.buttons === 1) || event.type ==="mousedown") {
+        event.currentTarget.style.backgroundColor = color;
+    }
+}
 
+const quantity = 36;
 fillGrid(quantity, grid);
+
+const gridSquares = document.querySelectorAll(".grid-square");
+let color = "#FFFFFF"
+
+gridSquares.forEach(square => {
+    square.addEventListener("mousedown", paintSquare);
+    square.addEventListener("mouseover", paintSquare);
+});
