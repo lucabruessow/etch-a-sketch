@@ -1,4 +1,5 @@
 const grid = document.querySelector(".grid");
+const resetBtn= document.querySelector(".controls-reset");
 
 function fillGrid(quantity, grid) {
     const flexBasis = 100 / Math.sqrt(quantity);
@@ -16,6 +17,12 @@ function paintSquare(event) {
     }
 }
 
+function resetSquare(event) {
+    gridSquares.forEach(square => {
+        square.style.backgroundColor = "initial";
+    });
+}
+
 const quantity = 36;
 fillGrid(quantity, grid);
 
@@ -26,3 +33,5 @@ gridSquares.forEach(square => {
     square.addEventListener("mousedown", paintSquare);
     square.addEventListener("mouseover", paintSquare);
 });
+
+resetBtn.addEventListener("click", resetSquare);
