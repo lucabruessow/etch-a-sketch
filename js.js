@@ -1,5 +1,7 @@
 const grid = document.querySelector(".grid");
 const colorPicker = document.querySelector(".controls-color-picker");
+const colorModeBtn = document.querySelector(".controls-color");
+const modeBtns = document.querySelectorAll(".control-modes");
 const resetBtn= document.querySelector(".controls-reset");
 
 colorPicker.value = "#50BCF0";
@@ -16,7 +18,15 @@ function fillGrid(quantity, grid) {
 }
 
 function changeChosenColor(event) {
-    color = event.target.value;
+    startColorMode(event);
+}
+
+function startColorMode(event) {
+    modeBtns.forEach(btn => {
+        btn.classList.remove("is-active");
+    });
+    colorModeBtn.classList.add("is-active");
+    color = colorPicker.value;
 }
 
 function paintSquare(event) {
@@ -37,6 +47,8 @@ fillGrid(quantity, grid);
 const gridSquares = document.querySelectorAll(".grid-square");
 
 colorPicker.addEventListener("change", changeChosenColor);
+
+colorModeBtn.addEventListener("click", startColorMode);
 
 gridSquares.forEach(square => {
     square.addEventListener("mousedown", paintSquare);

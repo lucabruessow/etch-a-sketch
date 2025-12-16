@@ -40,6 +40,11 @@ h1 {
     color: #FFFFFF;
 }
 
+.controls > .is-active {
+    background-color: #50BCF0;
+    color: #FFFFFF;
+}
+
 .controls-reset {
     margin-top: 50px;
 }
