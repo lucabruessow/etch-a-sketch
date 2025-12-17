@@ -4,6 +4,7 @@ const colorModeBtn = document.querySelector(".controls-color");
 const rainbowModeBtn = document.querySelector(".controls-rainbow");
 rainbowModeBtn.i = 0;
 const greyscaleModeBtn = document.querySelector(".controls-greyscale");
+const eraserBtn = document.querySelector(".controls-eraser");
 const modeBtns = document.querySelectorAll(".control-modes");
 const resetBtn= document.querySelector(".controls-reset");
 
@@ -46,6 +47,13 @@ function startGreyscaleMode(event) {
     greyscaleModeBtn.classList.add("is-active");
 }
 
+function startEraserMode(event) {
+    modeBtns.forEach(btn => {
+        btn.classList.remove("is-active");
+    });
+    eraserBtn.classList.add("is-active");
+}
+
 function paintSquare(event) {
     if ((event.type === "mouseover" && event.buttons === 1) || event.type ==="mousedown") {
         if (rainbowModeBtn.classList.contains("is-active")) {
@@ -57,6 +65,9 @@ function paintSquare(event) {
                 event.currentTarget.i = event.currentTarget.i - 10;
             }
             event.currentTarget.style.backgroundColor = "hsl(0, 0%," + (event.currentTarget.i) + "%)";
+        }
+        else if (eraserBtn.classList.contains("is-active")) {
+            event.currentTarget.style.backgroundColor = "initial";
         }
         else {
             event.currentTarget.style.backgroundColor = color;
@@ -81,6 +92,7 @@ colorPicker.addEventListener("change", changeChosenColor);
 colorModeBtn.addEventListener("click", startColorMode);
 rainbowModeBtn.addEventListener("click", startRainbowMode);
 greyscaleModeBtn.addEventListener("click", startGreyscaleMode);
+eraserBtn.addEventListener("click", startEraserMode);
 
 gridSquares.forEach(square => {
     square.i = 100;
