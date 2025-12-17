@@ -1,6 +1,8 @@
 const grid = document.querySelector(".grid");
 const colorPicker = document.querySelector(".controls-color-picker");
 const colorModeBtn = document.querySelector(".controls-color");
+const rainbowModeBtn = document.querySelector(".controls-rainbow");
+rainbowModeBtn.i = 0
 const modeBtns = document.querySelectorAll(".control-modes");
 const resetBtn= document.querySelector(".controls-reset");
 
@@ -29,9 +31,23 @@ function startColorMode(event) {
     color = colorPicker.value;
 }
 
+function startRainbowMode(event) {
+    modeBtns.forEach(btn => {
+        btn.classList.remove("is-active");
+    });
+    rainbowModeBtn.classList.add("is-active");
+}
+
 function paintSquare(event) {
     if ((event.type === "mouseover" && event.buttons === 1) || event.type ==="mousedown") {
-        event.currentTarget.style.backgroundColor = color;
+        if (rainbowModeBtn.classList.contains("is-active")) {
+            event.currentTarget.style.backgroundColor = "hsl(" + (rainbowModeBtn.i) + ",100%,50%)";
+            rainbowModeBtn.i = rainbowModeBtn.i + 25;
+        }
+        else {
+            event.currentTarget.style.backgroundColor = color;
+            i = 0;
+        }
     }
 }
 
@@ -49,6 +65,7 @@ const gridSquares = document.querySelectorAll(".grid-square");
 colorPicker.addEventListener("change", changeChosenColor);
 
 colorModeBtn.addEventListener("click", startColorMode);
+rainbowModeBtn.addEventListener("click", startRainbowMode);
 
 gridSquares.forEach(square => {
     square.addEventListener("mousedown", paintSquare);
