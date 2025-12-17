@@ -2,7 +2,8 @@ const grid = document.querySelector(".grid");
 const colorPicker = document.querySelector(".controls-color-picker");
 const colorModeBtn = document.querySelector(".controls-color");
 const rainbowModeBtn = document.querySelector(".controls-rainbow");
-rainbowModeBtn.i = 0
+rainbowModeBtn.i = 0;
+const greyscaleModeBtn = document.querySelector(".controls-greyscale");
 const modeBtns = document.querySelectorAll(".control-modes");
 const resetBtn= document.querySelector(".controls-reset");
 
@@ -38,11 +39,24 @@ function startRainbowMode(event) {
     rainbowModeBtn.classList.add("is-active");
 }
 
+function startGreyscaleMode(event) {
+    modeBtns.forEach(btn => {
+        btn.classList.remove("is-active");
+    });
+    greyscaleModeBtn.classList.add("is-active");
+}
+
 function paintSquare(event) {
     if ((event.type === "mouseover" && event.buttons === 1) || event.type ==="mousedown") {
         if (rainbowModeBtn.classList.contains("is-active")) {
-            event.currentTarget.style.backgroundColor = "hsl(" + (rainbowModeBtn.i) + ",100%,50%)";
+            event.currentTarget.style.backgroundColor = "hsl(" + (rainbowModeBtn.i) + ", 100%, 50%)";
             rainbowModeBtn.i = rainbowModeBtn.i + 25;
+        }
+        else if (greyscaleModeBtn.classList.contains("is-active")) {
+            if (event.currentTarget.i > 0) {
+                event.currentTarget.i = event.currentTarget.i - 10;
+            }
+            event.currentTarget.style.backgroundColor = "hsl(0, 0%," + (event.currentTarget.i) + "%)";
         }
         else {
             event.currentTarget.style.backgroundColor = color;
@@ -66,8 +80,10 @@ colorPicker.addEventListener("change", changeChosenColor);
 
 colorModeBtn.addEventListener("click", startColorMode);
 rainbowModeBtn.addEventListener("click", startRainbowMode);
+greyscaleModeBtn.addEventListener("click", startGreyscaleMode);
 
 gridSquares.forEach(square => {
+    square.i = 100;
     square.addEventListener("mousedown", paintSquare);
     square.addEventListener("mouseover", paintSquare);
 });
