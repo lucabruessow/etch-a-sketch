@@ -7,6 +7,8 @@ const greyscaleModeBtn = document.querySelector(".controls-greyscale");
 const eraserBtn = document.querySelector(".controls-eraser");
 const modeBtns = document.querySelectorAll(".control-modes");
 const resetBtn= document.querySelector(".controls-reset");
+const gridSectionSizeNum = document.querySelector(".grid-section-size");
+const slider = document.querySelector(".slider");
 
 colorPicker.value = "#50BCF0";
 let color = colorPicker.value;
@@ -19,6 +21,12 @@ function fillGrid(quantity, grid) {
         square.style.flexBasis = `${flexBasis}%`;
         grid.appendChild(square);
     }
+    const gridSquares = document.querySelectorAll(".grid-square");
+    gridSquares.forEach(square => {
+    square.i = 100;
+    square.addEventListener("mousedown", paintSquare);
+    square.addEventListener("mouseover", paintSquare);
+});
 }
 
 function changeChosenColor(event) {
@@ -77,15 +85,27 @@ function paintSquare(event) {
 }
 
 function resetSquare(event) {
+    const gridSquares = document.querySelectorAll(".grid-square");
     gridSquares.forEach(square => {
         square.style.backgroundColor = "initial";
     });
 }
 
-const quantity = 36;
-fillGrid(quantity, grid);
+function changeGrid(event) {
+    const gridSquares = document.querySelectorAll(".grid-square");
+    gridSquares.forEach(square => {
+        square.remove();
+        console.log(square);
+    })
+    squareNum = Math.pow(event.currentTarget.value, 2);
+    fillGrid(squareNum, grid);
 
-const gridSquares = document.querySelectorAll(".grid-square");
+    gridSectionSizeNum.textContent = `${event.currentTarget.value} x ${event.currentTarget.value}`;
+}
+
+const quantity = 16;
+
+fillGrid(quantity, grid);
 
 colorPicker.addEventListener("change", changeChosenColor);
 
@@ -94,10 +114,6 @@ rainbowModeBtn.addEventListener("click", startRainbowMode);
 greyscaleModeBtn.addEventListener("click", startGreyscaleMode);
 eraserBtn.addEventListener("click", startEraserMode);
 
-gridSquares.forEach(square => {
-    square.i = 100;
-    square.addEventListener("mousedown", paintSquare);
-    square.addEventListener("mouseover", paintSquare);
-});
+slider.addEventListener("change", changeGrid);
 
 resetBtn.addEventListener("click", resetSquare);
